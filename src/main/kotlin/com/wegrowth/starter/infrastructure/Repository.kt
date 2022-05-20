@@ -3,6 +3,7 @@ package com.wegrowth.starter.infrastructure
 
 import com.wegrowth.starter.domain.EntityNotFound
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
@@ -36,7 +37,7 @@ abstract class AbstractBaseRepository<T>(
 
     override fun findById(id: String) = queryDslRepository.findById(id)
 
-    override fun getAll(): List<T> = queryDslRepository.findAll()
+    override fun getAll(): List<T> = queryDslRepository.findAll(Sort.by("createAt").descending())
 
     override fun existOrElseThrow(id: String, name: String?) {
         if (!queryDslRepository.existsById(id))
