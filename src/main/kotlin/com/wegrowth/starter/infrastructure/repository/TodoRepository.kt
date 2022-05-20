@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository
 interface TodoRepository : BaseRepository<Todo>
 
 @Repository
-class TodoRepositoryImple(
-    queryDslRepository: TodoDslRepository
-) : TodoRepository, AbstractBaseRepository<Todo>(queryDslRepository) {
+class TodoRepositoryImpl(
+    todoDslRepository: TodoDslRepository
+) : TodoRepository, AbstractBaseRepository<Todo>(todoDslRepository) {
     interface TodoDslRepository : JpaQueryDslRepository<Todo>
 }
