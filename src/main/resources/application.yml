@@ -1,0 +1,19 @@
+server:
+  forward-headers-strategy: framework
+
+#swagger config
+springdoc:
+  api-docs:
+    enabled: true
+    path: /rest-api-docs
+  swagger-ui:
+    path: /swagger-ui
+
+logging:
+  level:
+    root: INFO
+#    org.springframework.security: TRACE
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
