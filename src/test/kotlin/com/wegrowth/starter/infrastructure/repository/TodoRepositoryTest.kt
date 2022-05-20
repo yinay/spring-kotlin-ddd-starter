@@ -31,8 +31,9 @@ class TodoRepositoryTest @Autowired constructor(
     fun `Add Todo should ok`() {
         val todo = todoRepository.save(Todo(description = "test to do "))
 
-        val saved = entityManager.find(Todo::class.java,todo.id)
+        val saved = entityManager.find(Todo::class.java, todo.id)
 
         Assertions.assertThat(saved).isNotNull
     }
+
 }

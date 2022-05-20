@@ -19,6 +19,7 @@
         <querydsl.version>5.0.0</querydsl.version>
         <springdoc.openapi>1.6.8</springdoc.openapi>
         <kotlin.logging>1.12.5</kotlin.logging>
+        <springmockk>3.1.1</springmockk>
     </properties>
     <dependencies>
         <dependency>
@@ -96,6 +97,13 @@
             <groupId>io.github.microutils</groupId>
             <artifactId>kotlin-logging</artifactId>
             <version>${kotlin.logging}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ninja-squad</groupId>
+            <artifactId>springmockk</artifactId>
+            <version>${springmockk}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
