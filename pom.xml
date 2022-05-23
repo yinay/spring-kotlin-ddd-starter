@@ -119,7 +119,6 @@
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
-                <version>${kotlin.version}</version>
                 <configuration>
                     <args>
                         <arg>-Xjsr305=strict</arg>
@@ -128,40 +127,8 @@
                         <plugin>spring</plugin>
                         <plugin>jpa</plugin>
                     </compilerPlugins>
-                    <annotationProcessorPaths>
-                        <annotationProcessorPath>
-                            <groupId>com.querydsl</groupId>
-                            <artifactId>querydsl-apt</artifactId>
-                            <version>${querydsl.version}</version>
-                            <classifier>jpa</classifier>
-                        </annotationProcessorPath>
-                    </annotationProcessorPaths>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-maven-allopen</artifactId>
-                        <version>${kotlin.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-maven-noarg</artifactId>
-                        <version>${kotlin.version}</version>
-                    </dependency>
-                </dependencies>
                 <executions>
-                    <execution>
-                        <id>kapt</id>
-                        <goals>
-                            <goal>kapt</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <sourceDir>src/main/kotlin</sourceDir>
-                                <sourceDir>src/main/java</sourceDir>
-                            </sourceDirs>
-                        </configuration>
-                    </execution>
                     <execution>
                         <id>compile</id>
                         <phase>process-sources</phase>
@@ -171,38 +138,62 @@
                         <configuration>
                             <sourceDirs>
                                 <sourceDir>src/main/kotlin</sourceDir>
-                                <sourceDir>src/main/java</sourceDir>
+                                <sourceDir>target/generated-sources/kapt</sourceDir>
                             </sourceDirs>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-kapt</id>
+                        <id>kapt</id>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>test-kapt</goal>
+                            <goal>kapt</goal>
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <sourceDir>src/test/kotlin</sourceDir>
-                                <sourceDir>src/test/java</sourceDir>
+                                <sourceDir>src/main/kotlin</sourceDir>
                             </sourceDirs>
+                            <annotationProcessorPaths>
+                                <annotationProcessorPath>
+                                    <groupId>com.querydsl</groupId>
+                                    <artifactId>querydsl-apt</artifactId>
+                                    <version>${querydsl.version}</version>
+                                    <classifier>jpa</classifier>
+                                </annotationProcessorPath>
+                            </annotationProcessorPaths>
+                            <annotationProcessors>
+                                <processor>
+                                    com.querydsl.apt.jpa.JPAAnnotationProcessor
+                                </processor>
+                            </annotationProcessors>
                         </configuration>
                     </execution>
                     <execution>
                         <id>test-compile</id>
+                        <phase>test-compile</phase>
                         <goals>
                             <goal>test-compile</goal>
                         </goals>
                         <configuration>
                             <sourceDirs>
                                 <sourceDir>src/test/kotlin</sourceDir>
-                                <sourceDir>src/test/java</sourceDir>
                                 <sourceDir>target/generated-sources/kapt/test</sourceDir>
                             </sourceDirs>
                         </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-noarg</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
-
         </plugins>
     </build>
 

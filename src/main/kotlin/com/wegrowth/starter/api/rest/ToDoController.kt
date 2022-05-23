@@ -29,7 +29,7 @@ class ToDoController(private val todoRepository: TodoRepository) {
     @RestPost(path = "/todo", tag = "todo", summary = "新建待办事项")
     fun addTodo(@RequestBody todo: TodoRequest): RestResult<Todo> {
         return RestResult.success {
-            todoRepository.save(Todo(description = todo.description))
+            todoRepository.save(Todo(description = todo.desc))
         }
     }
 
@@ -40,7 +40,7 @@ class ToDoController(private val todoRepository: TodoRepository) {
     ): RestResult<Todo> {
         return RestResult.success {
             todoRepository.findById(id).ifPresent {
-                it.update(todo.description)
+                it.update(todo.desc)
                 todoRepository.save(it)
             }
         }
